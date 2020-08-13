@@ -1,12 +1,10 @@
-const Sauce = require('../models/sauce');
-const fs = require('fs'); // Récupération du module 'file system' de Node permettant de gérer ici les téléchargement d'images
+const Sauce = require('../models/sauce'); //import du model pour les sauces.
+const fs = require('fs'); // Récupér le module 'file system' de Node pour les téléchargement d'images.
 
-//Permet de créer une sauce
+//Créer une sauce
 exports.createSauce = (req, res, next) => {
-  //Stocke les données envoyées par le front-end sous forme de form-data dans une variable en les transformant en objet js
-  const sauceObject = JSON.parse(req.body.sauce);
-  //Création d'une instance du modèle Sauce
-  const sauce = new Sauce({
+  const sauceObject = JSON.parse(req.body.sauce);   //Stocker et transformer les données envoyées par le front-end 
+  const sauce = new Sauce({     //Création d'une instance du modèle Sauce
     ...sauceObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,
@@ -14,20 +12,17 @@ exports.createSauce = (req, res, next) => {
     usersLiked: [],
     usersDisliked: []
   });
-  //Sauvegarde de la sauce dans la base de données
-  sauce.save()
-    .then(() => res.status(201).json({ message: 'Sauce enregistrée !'}))
-    .catch(error => res.status(400).json({ error }));
-    
+  sauce.save()   //Sauvegarde de la sauce dans la base de données
+    .then(() => res.status(201).json({ message: 'Sauce enregistrée !'}))   //promise renvoi de réponse 201, réponse de réussite.
+    .catch(error => res.status(400).json({ error }));                      //renvoi de réponse 400, message d'erreur.
 };
 
-//Permet de modifier une sauce
+//Modifier une sauce
 exports.modifySauce = (req, res, next) => {
-  let sauceObject = {};
+  let sauceObject = {};  
   req.file ? (
-    Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-      // On supprime l'ancienne image du serveur
-      const filename = sauce.imageUrl.split('/images/')[1]
+    Sauce.findOne({ _id: req.params.id }).then((sauce) => {     //Utilisation de la méthode find.
+      const filename = sauce.imageUrl.split('/images/')[1]         // supprime l'ancienne image du serveur.
       fs.unlinkSync(`images/${filename}`)
     }),
     sauceObject = {
@@ -44,8 +39,8 @@ exports.modifySauce = (req, res, next) => {
     { _id: req.params.id },
     { ...sauceObject, _id: req.params.id }
   )
-    .then(() => res.status(200).json({ message: 'Sauce modifiée !' }))
-    .catch((error) => res.status(400).json({ error }))
+    .then(() => res.status(200).json({ message: 'Sauce modifiée !' }))  //renvoi de réponse 200, resource validé.
+    .catch((error) => res.status(400).json({ error })) //renvoi de réponse 400, error.
 }
 
 //Permet de supprimer la sauce
@@ -68,14 +63,14 @@ exports.deleteSauce = (req, res, next) => {
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(404).json({ error }));
+    .catch(error => res.status(404).json(error));
 };
 
 //Permet de récuperer toutes les sauces de la base MongoDB
 exports.getAllSauce = (req, res, next) => {
-  Sauce.find()
-    .then(sauces => res.status(200).json(sauces))
-    .catch(error => res.status(400).json({ error }));
+  Sauce.find()  //utilisation de la méthode find, pour récuprer toute les sauces.
+    .then(sauces => res.status(200).json(sauces))  //promise qui nous renvoie le tableau de toute les sauces retourner par la base de donnée.
+    .catch(error => res.status(400).json({ error })); //renvoie une erreur 400.
 };
 
 //Permet de "liker"ou "dislaker" une sauce
