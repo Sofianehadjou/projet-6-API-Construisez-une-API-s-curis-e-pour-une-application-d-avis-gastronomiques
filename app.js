@@ -2,17 +2,17 @@ const express = require('express');  //importer express.
 const bodyParser = require('body-parser');  //impoter du package bodyParser.
 const mongoose = require('mongoose');  // import du package mongoose qui facilite les interactions avec notre base de données MongoDB.
 
-
 const path = require('path');
 
-const userRoutes = require('./routes/user');    //Appeler les routes 'User'
-const saucesRoutes = require('./routes/sauces');  //Appeler les routes 'Sauce'
+const userRoutes = require('./routes/user');    //import des routes 'User'
+const saucesRoutes = require('./routes/sauces');  //import des routes 'Sauce'
 
+require('dotenv').config(); // import du package dotenv.
 //Connection de la base de donnée à l'API.
-mongoose.connect('mongodb+srv://sofianeH:azerty@cluster0.1rk7z.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true }) 
+mongoose.connect(process.env.DB_CONNECT,
+  { useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 

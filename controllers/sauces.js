@@ -36,9 +36,7 @@ exports.modifySauce = (req, res, next) => {
   )
   Sauce.updateOne(
     // On applique les paramètre de sauceObject
-    { _id: req.params.id },
-    { ...sauceObject, _id: req.params.id }
-  )
+    { _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Sauce modifiée !' }))  //renvoi de réponse 200, resource validé.
     .catch((error) => res.status(400).json({ error })) //renvoi de réponse 400, error.
 }
