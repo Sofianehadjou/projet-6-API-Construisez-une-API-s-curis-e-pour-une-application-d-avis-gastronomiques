@@ -2,10 +2,17 @@
 Construisez une API sécurisée pour une application d'avis gastronomiques
 
 # Frontend
-1. Cloner le projet.
-2. Exécuter npm install.
-3. Exécuter npm start..
-URl: http://localhost:4200/.
+Cloner le projet.
+npm install
+
+# Install angular
+npm install -g @angular/cli
+
+# exécuter Angular
+npm install node-sass
+
+# Démarrer ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
+
 
 # Backend
 1- Installer nodemon : npm install -g nodemon.
