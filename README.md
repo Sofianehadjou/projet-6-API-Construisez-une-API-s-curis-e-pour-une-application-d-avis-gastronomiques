@@ -5,13 +5,13 @@ Construisez une API sécurisée pour une application d'avis gastronomiques
 Cloner le projet.
 npm install
 
-# Install angular
+Install angular
 npm install -g @angular/cli
 
-# exécuter Angular
+ exécuter Angular
 npm install node-sass
 
-# Démarrer ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
+ Démarrer ng serve pour avoir accès au serveur de développement. Rendez-vous sur http://localhost:4200/. L'application va se recharger automatiquement si vous modifiez un fichier source.
 
 
 # Backend
